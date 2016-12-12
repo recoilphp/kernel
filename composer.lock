@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "90c8f037f64f3781237d95a5336cd44a",
-    "content-hash": "7edf69be50c2da667118d3503872b5e2",
+    "hash": "3835171b5f05a7662904aca21f12b588",
+    "content-hash": "d578995ba7bf652ac9858a7e09fdc3b0",
     "packages": [
         {
             "name": "icecave/repr",
@@ -119,16 +119,16 @@
     "packages-dev": [
         {
             "name": "eloquent/phony",
-            "version": "0.13.5",
+            "version": "0.14.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/eloquent/phony.git",
-                "reference": "42cb187e65f55c259e006982f51ae266132d4797"
+                "reference": "c6b42391a4ef418afa83078a2405242123f50c01"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/eloquent/phony/zipball/42cb187e65f55c259e006982f51ae266132d4797",
-                "reference": "42cb187e65f55c259e006982f51ae266132d4797",
+                "url": "https://api.github.com/repos/eloquent/phony/zipball/c6b42391a4ef418afa83078a2405242123f50c01",
+                "reference": "c6b42391a4ef418afa83078a2405242123f50c01",
                 "shasum": ""
             },
             "require": {
@@ -138,7 +138,7 @@
                 "athletic/athletic": "^0.1",
                 "counterpart/counterpart": "^1",
                 "danielstjules/pho": "^1",
-                "eloquent/asplode": "^2",
+                "errors/exceptions": "dev-master",
                 "ext-pdo": "*",
                 "friendsofphp/php-cs-fixer": "1.11.4",
                 "hamcrest/hamcrest-php": "^2",
@@ -190,7 +190,7 @@
                 "stubbing",
                 "test"
             ],
-            "time": "2016-09-20 00:27:59"
+            "time": "2016-12-07 06:02:42"
         },
         {
             "name": "evenement/evenement",

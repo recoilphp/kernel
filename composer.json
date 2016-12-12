@@ -7,7 +7,7 @@
         "recoil/api": "^0.1"
     },
     "require-dev": {
-        "eloquent/phony": "^0.13",
+        "eloquent/phony": "^0.14",
         "friendsofphp/php-cs-fixer": "^1",
         "hamcrest/hamcrest-php": "^2",
         "peridot-php/leo": "^1",

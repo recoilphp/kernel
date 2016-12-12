@@ -104,7 +104,7 @@ trait KernelTrait
     public function send($value = null, Strand $strand = null)
     {
         assert(
-            $strand === null || $strand->kernel() === $this,
+            $strand === null || ($strand instanceof SystemStrand && $strand->kernel() === $this),
             'kernel can only handle notifications from its own strands'
         );
     }
@@ -118,7 +118,7 @@ trait KernelTrait
     public function throw(Throwable $exception, Strand $strand = null)
     {
         assert(
-            $strand === null || $strand->kernel() === $this,
+            $strand === null || ($strand instanceof SystemStrand && $strand->kernel() === $this),
             'kernel can only handle notifications from its own strands'
         );
 
