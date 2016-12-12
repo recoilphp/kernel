@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d0e433aacf36fdaa3bd11f90e479f519",
-    "content-hash": "27e59e42964d18ec1492e319081bcbb0",
+    "hash": "90c8f037f64f3781237d95a5336cd44a",
+    "content-hash": "7edf69be50c2da667118d3503872b5e2",
     "packages": [
         {
             "name": "icecave/repr",
@@ -117,57 +117,6 @@
         }
     ],
     "packages-dev": [
-        {
-            "name": "eloquent/enumeration",
-            "version": "5.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/eloquent/enumeration.git",
-                "reference": "0242859435d9b135939816858348556d3cde9e3c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/eloquent/enumeration/zipball/0242859435d9b135939816858348556d3cde9e3c",
-                "reference": "0242859435d9b135939816858348556d3cde9e3c",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3"
-            },
-            "require-dev": {
-                "icecave/archer": "dev-develop",
-                "phpunit/phpunit": "^4",
-                "sami/sami": "^3"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Eloquent\\Enumeration\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Erin Millard",
-                    "email": "ezzatron@gmail.com",
-                    "homepage": "http://ezzatron.com/"
-                }
-            ],
-            "description": "An enumeration implementation for PHP.",
-            "homepage": "https://github.com/eloquent/enumeration",
-            "keywords": [
-                "class",
-                "enum",
-                "enumeration",
-                "multiton",
-                "set",
-                "type"
-            ],
-            "time": "2015-11-03 22:21:38"
-        },
         {
             "name": "eloquent/phony",
             "version": "0.13.5",
@@ -394,57 +343,6 @@
                 "test"
             ],
             "time": "2016-01-20 08:20:44"
-        },
-        {
-            "name": "nikic/php-parser",
-            "version": "v2.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "4dd659edadffdc2143e4753df655d866dbfeedf0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/4dd659edadffdc2143e4753df655d866dbfeedf0",
-                "reference": "4dd659edadffdc2143e4753df655d866dbfeedf0",
-                "shasum": ""
-            },
-            "require": {
-                "ext-tokenizer": "*",
-                "php": ">=5.4"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.0"
-            },
-            "bin": [
-                "bin/php-parse"
-            ],
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.1-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "PhpParser\\": "lib/PhpParser"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Nikita Popov"
-                }
-            ],
-            "description": "A PHP parser written in PHP",
-            "keywords": [
-                "parser",
-                "php"
-            ],
-            "time": "2016-09-16 12:04:44"
         },
         {
             "name": "peridot-php/leo",
@@ -925,76 +823,6 @@
                 "psr-3"
             ],
             "time": "2016-10-10 12:19:37"
-        },
-        {
-            "name": "recoil/dev",
-            "version": "0.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/recoilphp/dev.git",
-                "reference": "0a9e1f51b4003ad3c26070a0988977974805775b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/recoilphp/dev/zipball/0a9e1f51b4003ad3c26070a0988977974805775b",
-                "reference": "0a9e1f51b4003ad3c26070a0988977974805775b",
-                "shasum": ""
-            },
-            "require": {
-                "composer-plugin-api": "^1",
-                "eloquent/enumeration": "^5",
-                "nikic/php-parser": "^2.1",
-                "php": "^7",
-                "recoil/api": "^0.1"
-            },
-            "require-dev": {
-                "composer/composer": "1.0.0",
-                "eloquent/phony": "^0.13",
-                "friendsofphp/php-cs-fixer": "^1",
-                "peridot-php/leo": "^1",
-                "peridot-php/peridot": "^1",
-                "peridot-php/peridot-code-coverage-reporters": "^2",
-                "recoil/recoil": "dev-master#ed34cf7"
-            },
-            "bin": [
-                "bin/recoil-instrument"
-            ],
-            "type": "composer-plugin",
-            "extra": {
-                "class": "Recoil\\Dev\\Composer\\Plugin"
-            },
-            "autoload": {
-                "psr-4": {
-                    "Recoil\\Dev\\": "src"
-                },
-                "files": [
-                    "src/Peridot/dsl.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "James Harris",
-                    "email": "james.harris@icecave.com.au",
-                    "homepage": "https://github.com/jmalloc"
-                }
-            ],
-            "description": "Development and debugging tools for Recoil applications.",
-            "homepage": "https://github.com/recoilphp/dev",
-            "keywords": [
-                "async",
-                "asynchronous",
-                "debug",
-                "exception",
-                "instrumentation",
-                "recoil",
-                "stack",
-                "trace"
-            ],
-            "time": "2016-12-12 01:34:21"
         },
         {
             "name": "sebastian/diff",
