@@ -608,6 +608,26 @@ describe(StrandTrait::class, function () {
         });
     });
 
+    describe('->clearPrimaryListener()', function () {
+        it('sets the listener back to the kernel', function () {
+            ($this->initializeSubject)(
+                Phony::stub()->generates()->returns('<result>')
+            );
+
+            $this->subject->get()->setPrimaryListener($this->listener1->get());
+            $this->subject->get()->clearPrimaryListener();
+            $this->subject->get()->start();
+
+            $this->kernel->send->calledWith('<result>', $this->subject);
+        });
+
+        it('does not notify the listener', function () {
+            $this->subject->get()->setPrimaryListener($this->listener1->get());
+            $this->subject->get()->clearPrimaryListener();
+            $this->listener1->throw->never()->called();
+        });
+    });
+
     context('when the strand has succeeded', function () {
         beforeEach(function () {
             ($this->initializeSubject)(
