@@ -19,6 +19,8 @@ trait KernelTrait
 {
     /**
      * Create a new kernel.
+     *
+     * @param mixed $arguments,... Implementation-specific parameters.
      */
     abstract public static function create() : self;
 
