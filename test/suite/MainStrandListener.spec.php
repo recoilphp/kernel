@@ -48,9 +48,9 @@ describe(MainStrandListener::class, function () {
 
             try {
                 $this->subject->get();
-                assert(false, 'expected exception was not thrown');
+                expect(false)->to->be->ok('expected exception was not thrown');
             } catch (Exception $e) {
-                assert($e === $exception, 'expected exception was not thrown');
+                expect($e === $exception)->to->be->ok('expected exception was not thrown');
             }
         });
 
