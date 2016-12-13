@@ -8,7 +8,6 @@ use Eloquent\Phony\Phony;
 use Exception;
 use Generator;
 use Hamcrest\Core\IsInstanceOf;
-use InvalidArgumentException;
 use Recoil\ApiCall;
 use Recoil\Awaitable;
 use Recoil\AwaitableProvider;
@@ -20,6 +19,7 @@ use Recoil\Listener;
 use Recoil\Strand;
 use Recoil\StrandTrace;
 use Throwable;
+use UnexpectedValueException;
 
 describe(StrandTrait::class, function () {
     beforeEach(function () {
@@ -87,16 +87,6 @@ describe(StrandTrait::class, function () {
             $this->subject->get()->start();
 
             $this->api->__dispatch->calledWith($this->subject, '<key>', '<value>');
-        });
-
-        it('throws when passed a regular function', function () {
-            try {
-                ($this->initializeSubject)(function () {
-                });
-                expect(false)->to->be->ok('expected exception was not thrown');
-            } catch (InvalidArgumentException $e) {
-                expect($e->getMessage())->to->equal('Callable must return a generator.');
-            }
         });
 
         it('dispatches other types via the kernel api', function () {
@@ -416,6 +406,30 @@ describe(StrandTrait::class, function () {
                 $awaitable->await->calledWith($this->subject);
                 $fn->generated()->never()->received();
                 $fn->generated()->never()->receivedException();
+            });
+
+            it('invokes coroutines returned from callables', function () {
+                $fn1 = Phony::stub();
+                $fn1->generates()->returns('<result>');
+                $fn2 = Phony::stub();
+                $fn2->generates([$fn1]);
+                ($this->initializeSubject)($fn2);
+
+                $this->subject->get()->start();
+                $fn2->generated()->received('<result>');
+            });
+
+            it('throws an exception if a yielded callable does not return a generator', function () {
+                $fn1 = Phony::stub();
+                $fn1->returns('<string>');
+                $fn2 = Phony::stub();
+                $fn2->generates([$fn1]);
+                ($this->initializeSubject)($fn2);
+
+                $this->subject->get()->start();
+                $fn2->generated()->receivedException(new UnexpectedValueException(
+                    'The yielded callable returned "<string>", expected a generator.'
+                ));
             });
 
             it('forwards other values to the api for dispatch', function () {

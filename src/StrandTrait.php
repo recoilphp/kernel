@@ -6,7 +6,7 @@ namespace Recoil\Kernel;
 
 use Closure;
 use Generator;
-use InvalidArgumentException;
+use Icecave\Repr\Repr;
 use Recoil\ApiCall;
 use Recoil\Awaitable;
 use Recoil\AwaitableProvider;
@@ -19,6 +19,7 @@ use Recoil\Strand;
 use Recoil\StrandTrace;
 use SplObjectStorage;
 use Throwable;
+use UnexpectedValueException;
 
 /**
  * The standard {@see SystemStrand} implementation.
@@ -46,17 +47,6 @@ trait StrandTrait
             $this->current = $entryPoint;
         } elseif ($entryPoint instanceof CoroutineProvider) {
             $this->current = $entryPoint->coroutine();
-        } elseif (
-            $entryPoint instanceof Closure || // perf
-            \is_callable($entryPoint)
-        ) {
-            $this->current = $entryPoint();
-
-            if (!$this->current instanceof Generator) {
-                throw new InvalidArgumentException(
-                    'Callable must return a generator.'
-                );
-            }
         } else {
             $this->current = (static function () use ($entryPoint) {
                 return yield $entryPoint;
@@ -172,6 +162,12 @@ trait StrandTrait
                     // Another generator was yielded, push it onto the call
                     // stack and execute it ...
                     if ($produced instanceof Generator) {
+                        push_generator:
+                        assert(
+                            $produced instanceof Generator,
+                            'can not push non-generator onto stack'
+                        );
+
                         // "fast" functionless stack-push ...
                         $this->stack[$this->depth++] = $this->current;
                         $this->current = $produced;
@@ -194,22 +190,7 @@ trait StrandTrait
                         // The coroutine is extracted from the provider before the
                         // stack push is begun in case coroutine() throws ...
                         $produced = $produced->coroutine();
-
-                        // "fast" functionless stack-push ...
-                        $this->stack[$this->depth++] = $this->current;
-                        $this->current = $produced;
-                        $this->state = StrandState::RUNNING;
-
-                        // Trace the stack push, this is performed inside an
-                        // assertion so that it can be optimised away completely
-                        // in production ...
-                        assert(
-                            $this->trace === null ||
-                            $this->trace->push($this, $this->depth) ||
-                            true
-                        );
-
-                        goto start_generator;
+                        goto push_generator;
 
                     // An API call was made through the Recoil static facade ...
                     } elseif ($produced instanceof ApiCall) {
@@ -221,21 +202,7 @@ trait StrandTrait
                         // The API call is implemented as a generator coroutine,
                         // push it onto the call-stack and execute it ...
                         if ($produced instanceof Generator) {
-                            // "fast" functionless stack-push ...
-                            $this->stack[$this->depth++] = $this->current;
-                            $this->current = $produced;
-                            $this->state = StrandState::RUNNING;
-
-                            // Trace the stack push, this is performed inside an
-                            // assertion so that it can be optimised away
-                            // completely in production ...
-                            assert(
-                                $this->trace === null ||
-                                $this->trace->push($this, $this->depth) ||
-                                true
-                            );
-
-                            goto start_generator;
+                            goto push_generator;
                         }
 
                     // A generic awaitable object was yielded ...
@@ -245,6 +212,23 @@ trait StrandTrait
                     // An awaitable provider was yielded ...
                     } elseif ($produced instanceof AwaitableProvider) {
                         $produced->awaitable()->await($this);
+
+                    // A raw callable was yielded ...
+                    } elseif (
+                        $produced instanceof Closure || // perf
+                        \is_callable($produced)
+                    ) {
+                        $produced = $produced();
+
+                        if ($produced instanceof Generator) {
+                            goto push_generator;
+                        }
+
+                        throw new UnexpectedValueException(
+                            'The yielded callable returned ' .
+                            Repr::repr($produced) .
+                            ', expected a generator.'
+                        );
 
                     // Some unidentified value was yielded, allow the API to
                     // dispatch the operation as it sees fit ...
