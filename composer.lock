@@ -60,23 +60,23 @@
         },
         {
             "name": "recoil/api",
-            "version": "0.1.0",
+            "version": "0.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/recoilphp/api.git",
-                "reference": "cae1fea593f845bdb9f89c14dfdebf10b46345d0"
+                "reference": "9e0cf0b5ffc0e5fbde5452400dbadf911c5985df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/recoilphp/api/zipball/cae1fea593f845bdb9f89c14dfdebf10b46345d0",
-                "reference": "cae1fea593f845bdb9f89c14dfdebf10b46345d0",
+                "url": "https://api.github.com/repos/recoilphp/api/zipball/9e0cf0b5ffc0e5fbde5452400dbadf911c5985df",
+                "reference": "9e0cf0b5ffc0e5fbde5452400dbadf911c5985df",
                 "shasum": ""
             },
             "require": {
                 "php": "^7"
             },
             "require-dev": {
-                "eloquent/phony": "^0.13",
+                "eloquent/phony": "^0.14",
                 "friendsofphp/php-cs-fixer": "^1",
                 "peridot-php/leo": "^1",
                 "peridot-php/peridot": "^1",
@@ -113,7 +113,7 @@
                 "multitasking",
                 "react"
             ],
-            "time": "2016-08-22 04:10:11"
+            "time": "2016-12-13 03:42:38"
         }
     ],
     "packages-dev": [
