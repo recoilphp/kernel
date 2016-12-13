@@ -18,6 +18,34 @@ use Throwable;
 trait KernelTrait
 {
     /**
+     * Create a new kernel.
+     */
+    abstract public static function create() : self;
+
+    /**
+     * Execute a coroutine on a new kernel.
+     *
+     * This function blocks until the coroutine has finished executing, at which
+     * point the kernel is stopped.
+     *
+     * @return mixed                  The result of the coroutine.
+     * @throws Throwable              The coroutine throw an exception.
+     * @throws KernelStoppedException The kernel was stopped before the coroutine completed.
+     */
+    public static function start($coroutine, ...$arguments)
+    {
+        $kernel = self::create(...$arguments);
+
+        $listener = new MainStrandListener();
+        $strand = $kernel->execute($coroutine);
+        $strand->setPrimaryListener($listener);
+
+        $kernel->run();
+
+        return $listener->get();
+    }
+
+    /**
      * Run the kernel until all strands exit, the kernel is stopped or a kernel
      * panic occurs.
      *
@@ -67,6 +95,16 @@ trait KernelTrait
             $this->state = KernelState::STOPPING;
         }
     }
+
+    /**
+     * Schedule a coroutine for execution on a new strand.
+     *
+     * Execution begins when the kernel is run; or, if called from within a
+     * strand, when that strand cooperates.
+     *
+     * @param mixed $coroutine The coroutine to execute.
+     */
+    abstract public function execute($coroutine) : Strand;
 
     /**
      * Set a user-defined exception handler function.

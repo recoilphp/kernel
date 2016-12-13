@@ -7,15 +7,58 @@ namespace Recoil\Kernel;
 use Closure;
 use Eloquent\Phony\Phony;
 use Exception;
+use Hamcrest\Core\IsInstanceOf;
 use Recoil\Exception\KernelException;
 use Recoil\Exception\StrandException;
 use Recoil\Exception\TerminatedException;
 
 describe(KernelTrait::class, function () {
     beforeEach(function () {
-        $this->subject = Phony::partialMock([SystemKernel::class, KernelTrait::class]);
+        $this->subject = Phony::partialMock(
+            [
+                SystemKernel::class,
+                KernelTrait::class,
+                [
+                    'static create' => function () {
+                        return $this->subject->get();
+                    },
+                ],
+            ]
+        );
         $this->strand = Phony::mock(SystemStrand::class);
         $this->strand->kernel->returns($this->subject);
+    });
+
+    describe('::start()', function () {
+        beforeEach(function () {
+            $this->subject->execute->returns($this->strand);
+            $this->strand->setPrimaryListener->does(function ($listener) {
+                $listener->send('<value>', $this->strand->get());
+            });
+        });
+
+        it('forwards arguments to create()', function () {
+            $fn = [$this->subject->className(), 'start'];
+            $fn('<coroutine>', 1, 2, 3);
+
+            Phony::onStatic($this->subject)->create->calledWith(1, 2, 3);
+        });
+
+        it('uses a MainStrandListener', function () {
+            $fn = [$this->subject->className(), 'start'];
+            $fn('<coroutine>', 1, 2, 3);
+
+            $this->strand->setPrimaryListener->calledWith(
+                IsInstanceOf::anInstanceOf(MainStrandListener::class)
+            );
+        });
+
+        it('returns the captured value', function () {
+            $fn = [$this->subject->className(), 'start'];
+            $value = $fn('<coroutine>', 1, 2, 3);
+
+            expect($value)->to->equal('<value>');
+        });
     });
 
     describe('->run()', function () {
