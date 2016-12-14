@@ -24,7 +24,6 @@ final class StrandWaitAny implements Awaitable, Listener
      * Attach a listener to this object.
      *
      * @param Listener $listener The object to resume when the work is complete.
-     * @param Api      $api      The API implementation for the current kernel.
      *
      * @return null
      */
