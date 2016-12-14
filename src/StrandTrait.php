@@ -315,7 +315,7 @@ trait StrandTrait
         );
 
         // Otherwise the call-stack is empty, the strand has exited ...
-        return $this->exit();
+        $this->exit();
     }
 
     /**
