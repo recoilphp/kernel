@@ -32,7 +32,6 @@ describe(StrandWaitFirst::class, function () {
 
     describe('->await()', function () {
         it('resumes the strand when any substrand succeeds', function () {
-            $this->strand->setTerminator->calledWith([$this->subject, 'cancel']);
             $this->substrand1->setPrimaryListener->calledWith($this->subject);
             $this->substrand2->setPrimaryListener->calledWith($this->subject);
 
@@ -61,11 +60,12 @@ describe(StrandWaitFirst::class, function () {
                 $this->strand->send->called()
             );
         });
-    });
 
-    describe('->cancel()', function () {
-        it('terminates the remaining substrands', function () {
-            $this->subject->cancel();
+        it('terminates remaining substrands when the calling strand is terminated', function () {
+            $fn = $this->strand->setTerminator->called()->firstCall()->argument();
+            expect($fn)->to->satisfy('is_callable');
+
+            $fn();
 
             Phony::inOrder(
                 $this->substrand1->clearPrimaryListener->called(),
@@ -78,10 +78,13 @@ describe(StrandWaitFirst::class, function () {
             );
         });
 
-        it('does not terminate strands twice', function () {
+        it('does not terminate strands more than once', function () {
+            $fn = $this->strand->setTerminator->called()->firstCall()->argument();
+            expect($fn)->to->satisfy('is_callable');
+
             $this->subject->send('<one>', $this->substrand1->get());
 
-            $this->subject->cancel();
+            $fn();
 
             $this->substrand1->clearPrimaryListener->never()->called();
             $this->substrand1->terminate->never()->called();

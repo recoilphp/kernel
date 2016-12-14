@@ -90,8 +90,6 @@ describe(StrandWaitSome::class, function () {
         });
 
         it('terminates unused substrands', function () {
-            $this->strand->setTerminator->calledWith([$this->subject, 'cancel']);
-
             $this->subject->send('<two>', $this->substrand2->get());
             $this->subject->send('<one>', $this->substrand1->get());
 
@@ -101,13 +99,14 @@ describe(StrandWaitSome::class, function () {
                 $this->strand->send->called()
             );
         });
-    });
 
-    describe('->cancel()', function () {
-        it('only terminates the remaining substrands', function () {
+        it('terminates remaining substrands when the calling strand is terminated', function () {
+            $fn = $this->strand->setTerminator->called()->firstCall()->argument();
+            expect($fn)->to->satisfy('is_callable');
+
             $this->subject->send('<one>', $this->substrand1->get());
 
-            $this->subject->cancel();
+            $fn();
 
             $this->substrand1->setPrimaryListener->never()->calledWith(null);
             $this->substrand1->terminate->never()->called();
@@ -115,11 +114,6 @@ describe(StrandWaitSome::class, function () {
             Phony::inOrder(
                 $this->substrand2->clearPrimaryListener->called(),
                 $this->substrand2->terminate->called()
-            );
-
-            Phony::inOrder(
-                $this->substrand3->clearPrimaryListener->called(),
-                $this->substrand3->terminate->called()
             );
         });
     });

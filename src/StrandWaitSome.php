@@ -18,7 +18,7 @@ final class StrandWaitSome implements Awaitable, Listener
     public function __construct(int $count, SystemStrand ...$substrands)
     {
         assert($count >= 1);
-        assert($count <= \count($substrands));
+        assert($count <= count($substrands));
 
         $this->count = $count;
         $this->substrands = $substrands;
@@ -46,7 +46,12 @@ final class StrandWaitSome implements Awaitable, Listener
     public function await(Listener $listener)
     {
         if ($listener instanceof SystemStrand) {
-            $listener->setTerminator([$this, 'cancel']);
+            $listener->setTerminator(function () {
+                foreach ($this->substrands as $strand) {
+                    $strand->clearPrimaryListener();
+                    $strand->terminate();
+                }
+            });
         }
 
         $this->listener = $listener;
@@ -98,7 +103,7 @@ final class StrandWaitSome implements Awaitable, Listener
 
         $this->exceptions[$index] = $exception;
 
-        if ($this->count > count($this->substrands)) {
+        if ($this->count > \count($this->substrands)) {
             foreach ($this->substrands as $s) {
                 $s->clearPrimaryListener();
                 $s->terminate();
@@ -107,17 +112,6 @@ final class StrandWaitSome implements Awaitable, Listener
             $this->listener->throw(
                 CompositeException::create($this->exceptions)
             );
-        }
-    }
-
-    /**
-     * Terminate all remaining strands.
-     */
-    public function cancel()
-    {
-        foreach ($this->substrands as $strand) {
-            $strand->clearPrimaryListener();
-            $strand->terminate();
         }
     }
 

@@ -27,7 +27,12 @@ final class StrandWaitFirst implements Awaitable, Listener
     public function await(Listener $listener)
     {
         if ($listener instanceof SystemStrand) {
-            $listener->setTerminator([$this, 'cancel']);
+            $listener->setTerminator(function () {
+                foreach ($this->substrands as $strand) {
+                    $strand->clearPrimaryListener();
+                    $strand->terminate();
+                }
+            });
         }
 
         $this->listener = $listener;
@@ -79,17 +84,6 @@ final class StrandWaitFirst implements Awaitable, Listener
 
         $this->substrands = [];
         $this->listener->throw($exception, $strand);
-    }
-
-    /**
-     * Terminate all remaining strands.
-     */
-    public function cancel()
-    {
-        foreach ($this->substrands as $strand) {
-            $strand->clearPrimaryListener();
-            $strand->terminate();
-        }
     }
 
     /**
