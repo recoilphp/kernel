@@ -23,12 +23,16 @@ final class StrandWaitFirst implements Awaitable, Listener
      * Attach a listener to this object.
      *
      * @param Listener $listener The object to resume when the work is complete.
-     * @param Api      $api      The API implementation for the current kernel.
      */
     public function await(Listener $listener)
     {
         if ($listener instanceof SystemStrand) {
-            $listener->setTerminator([$this, 'cancel']);
+            $listener->setTerminator(function () {
+                foreach ($this->substrands as $strand) {
+                    $strand->clearPrimaryListener();
+                    $strand->terminate();
+                }
+            });
         }
 
         $this->listener = $listener;
@@ -80,17 +84,6 @@ final class StrandWaitFirst implements Awaitable, Listener
 
         $this->substrands = [];
         $this->listener->throw($exception, $strand);
-    }
-
-    /**
-     * Terminate all remaining strands.
-     */
-    public function cancel()
-    {
-        foreach ($this->substrands as $strand) {
-            $strand->clearPrimaryListener();
-            $strand->terminate();
-        }
     }
 
     /**

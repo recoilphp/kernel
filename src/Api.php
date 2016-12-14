@@ -163,7 +163,7 @@ interface Api
      *
      * @param SystemStrand      $strand  The strand executing the API call.
      * @param SystemStrand      $strandA The first strand to link.
-     * @param SystemStrand|null $strandB The first strand to link (null = calling strand).
+     * @param SystemStrand|null $strandB The second strand to link (null = calling strand).
      *
      * @return Generator|null
      */
@@ -180,7 +180,7 @@ interface Api
      *
      * @param SystemStrand      $strand  The strand executing the API call.
      * @param SystemStrand      $strandA The first strand to unlink.
-     * @param SystemStrand|null $strandB The first strand to unlink (null = calling strand).
+     * @param SystemStrand|null $strandB The second strand to unlink (null = calling strand).
      *
      * @return Generator|null
      */

@@ -57,9 +57,7 @@ trait StrandTrait
     /**
      * Get the strand's ID.
      *
-     * No two active on the same kernel may share an ID.
-     *
-     * @return int The strand ID.
+     * Strand IDs are unique within the kernel.
      */
     public function id() : int
     {
@@ -317,7 +315,7 @@ trait StrandTrait
         );
 
         // Otherwise the call-stack is empty, the strand has exited ...
-        return $this->exit();
+        $this->exit();
     }
 
     /**

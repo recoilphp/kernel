@@ -31,7 +31,7 @@ trait KernelTrait
      * point the kernel is stopped.
      *
      * @return mixed                  The result of the coroutine.
-     * @throws Throwable              The coroutine throw an exception.
+     * @throws Throwable              The exception thrown by the coroutine, if any.
      * @throws KernelStoppedException The kernel was stopped before the coroutine completed.
      */
     public static function start($coroutine, ...$arguments)

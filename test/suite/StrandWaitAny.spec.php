@@ -33,7 +33,6 @@ describe(StrandWaitAny::class, function () {
 
     describe('->await()', function () {
         it('resumes the strand when any substrand succeeds', function () {
-            $this->strand->setTerminator->calledWith([$this->subject, 'cancel']);
             $this->substrand1->setPrimaryListener->calledWith($this->subject);
             $this->substrand2->setPrimaryListener->calledWith($this->subject);
 
@@ -71,14 +70,15 @@ describe(StrandWaitAny::class, function () {
                 $this->strand->send->called()
             );
         });
-    });
 
-    describe('->cancel()', function () {
-        it('only terminates the remaining substrands', function () {
+        it('terminates remaining substrands when the calling strand is terminated', function () {
+            $fn = $this->strand->setTerminator->called()->firstCall()->argument();
+            expect($fn)->to->satisfy('is_callable');
+
             $exception = Phony::mock(Throwable::class);
             $this->subject->throw($exception->get(), $this->substrand1->get());
 
-            $this->subject->cancel();
+            $fn();
 
             $this->substrand1->setPrimaryListener->never()->calledWith(null);
             $this->substrand1->terminate->never()->called();

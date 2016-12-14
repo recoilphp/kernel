@@ -32,7 +32,6 @@ describe(StrandWaitAll::class, function () {
 
     describe('->await()', function () {
         it('resumes the strand when all substrands succeed', function () {
-            $this->strand->setTerminator->calledWith([$this->subject, 'cancel']);
             $this->substrand1->setPrimaryListener->calledWith($this->subject);
             $this->substrand2->setPrimaryListener->calledWith($this->subject);
 
@@ -68,13 +67,14 @@ describe(StrandWaitAll::class, function () {
                 $this->strand->throw->called()
             );
         });
-    });
 
-    describe('->cancel()', function () {
-        it('only terminates the remaining substrands', function () {
+        it('terminates remaining substrands when the calling strand is terminated', function () {
+            $fn = $this->strand->setTerminator->called()->firstCall()->argument();
+            expect($fn)->to->satisfy('is_callable');
+
             $this->subject->send('<one>', $this->substrand1->get());
 
-            $this->subject->cancel();
+            $fn();
 
             $this->substrand1->setPrimaryListener->never()->calledWith(null);
             $this->substrand1->terminate->never()->called();

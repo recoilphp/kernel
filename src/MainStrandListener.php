@@ -61,6 +61,9 @@ final class MainStrandListener implements Listener
     /**
      * Return the value produced by the strand (or throw the exception if it
      * failed).
+     *
+     * @return mixed     The value returned by the strand.
+     * @throws Throwable The exception thrown by the strand, if any.
      */
     public function get()
     {
