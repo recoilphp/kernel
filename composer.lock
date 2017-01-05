@@ -64,12 +64,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/recoilphp/api.git",
-                "reference": "7fbce11bee649da0910175d4c6678fd5a03afdc3"
+                "reference": "24c29cfb8c08872aea40b217fd79af445b7d6c22"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/recoilphp/api/zipball/7fbce11bee649da0910175d4c6678fd5a03afdc3",
-                "reference": "7fbce11bee649da0910175d4c6678fd5a03afdc3",
+                "url": "https://api.github.com/repos/recoilphp/api/zipball/24c29cfb8c08872aea40b217fd79af445b7d6c22",
+                "reference": "24c29cfb8c08872aea40b217fd79af445b7d6c22",
                 "shasum": ""
             },
             "require": {
@@ -113,7 +113,7 @@
                 "multitasking",
                 "react"
             ],
-            "time": "2017-01-05 00:56:24"
+            "time": "2017-01-05 23:53:37"
         }
     ],
     "packages-dev": [

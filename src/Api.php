@@ -300,7 +300,7 @@ interface Api
      * @param SystemStrand    $strand  The strand executing the API call.
      * @param array<resource> $read    The set of readable streams.
      * @param array<resource> $read    The set of writable streams.
-     * @param float|null      $timeout The maximum time to wait, in seconds (null = forever).
+     * @param float           $timeout The maximum time to wait, in seconds.
      *
      * @return Generator|null
      */
@@ -308,6 +308,6 @@ interface Api
         SystemStrand $strand,
         array $read,
         array $write,
-        float $timeout = null
+        float $timeout = INF
     );
 }
