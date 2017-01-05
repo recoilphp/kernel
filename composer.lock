@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "bf5c7ea7f86a16b927a91df7d8d316a5",
-    "content-hash": "9484ddeb05f027b0cc6966e89812676c",
+    "hash": "aa2162b4ec520cc61c00f660f64af9b3",
+    "content-hash": "5720419d84f3481e7f82890f9ca68a94",
     "packages": [
         {
             "name": "icecave/repr",
@@ -60,16 +60,16 @@
         },
         {
             "name": "recoil/api",
-            "version": "1.0.0-alpha.1",
+            "version": "dev-3-select",
             "source": {
                 "type": "git",
                 "url": "https://github.com/recoilphp/api.git",
-                "reference": "66c0255cc1b71b576963800920dbc4a1ae7a6ebf"
+                "reference": "7fbce11bee649da0910175d4c6678fd5a03afdc3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/recoilphp/api/zipball/66c0255cc1b71b576963800920dbc4a1ae7a6ebf",
-                "reference": "66c0255cc1b71b576963800920dbc4a1ae7a6ebf",
+                "url": "https://api.github.com/repos/recoilphp/api/zipball/7fbce11bee649da0910175d4c6678fd5a03afdc3",
+                "reference": "7fbce11bee649da0910175d4c6678fd5a03afdc3",
                 "shasum": ""
             },
             "require": {
@@ -113,22 +113,22 @@
                 "multitasking",
                 "react"
             ],
-            "time": "2016-12-13 23:07:28"
+            "time": "2017-01-05 00:56:24"
         }
     ],
     "packages-dev": [
         {
             "name": "eloquent/phony",
-            "version": "0.14.5",
+            "version": "0.14.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/eloquent/phony.git",
-                "reference": "c6b42391a4ef418afa83078a2405242123f50c01"
+                "reference": "1ef22360a48abc2d8d9ede2db67112240cddac06"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/eloquent/phony/zipball/c6b42391a4ef418afa83078a2405242123f50c01",
-                "reference": "c6b42391a4ef418afa83078a2405242123f50c01",
+                "url": "https://api.github.com/repos/eloquent/phony/zipball/1ef22360a48abc2d8d9ede2db67112240cddac06",
+                "reference": "1ef22360a48abc2d8d9ede2db67112240cddac06",
                 "shasum": ""
             },
             "require": {
@@ -190,7 +190,7 @@
                 "stubbing",
                 "test"
             ],
-            "time": "2016-12-07 06:02:42"
+            "time": "2017-01-03 03:48:40"
         },
         {
             "name": "evenement/evenement",
@@ -1397,10 +1397,17 @@
             "time": "2016-06-29 05:43:10"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.0.0-alpha.99999",
+            "alias_normalized": "1.0.0.0-alpha99999",
+            "version": "dev-3-select",
+            "package": "recoil/api"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "recoil/api": 15
+        "recoil/api": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

@@ -291,4 +291,23 @@ interface Api
         string $buffer,
         int $length
     );
+
+    /**
+     * Wait for one or more streams to become readable or writable.
+     *
+     * @see Recoil::select() for the full specification.
+     *
+     * @param SystemStrand    $strand  The strand executing the API call.
+     * @param array<resource> $read    The set of readable streams.
+     * @param array<resource> $read    The set of writable streams.
+     * @param float|null      $timeout The maximum time to wait, in seconds (null = forever).
+     *
+     * @return Generator|null
+     */
+    public static function select(
+        SystemStrand $strand,
+        array $read,
+        array $write,
+        float $timeout = null
+    );
 }
