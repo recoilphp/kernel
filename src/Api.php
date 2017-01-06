@@ -304,7 +304,7 @@ interface Api
      *
      * @return Generator|null
      */
-    public static function select(
+    public function select(
         SystemStrand $strand,
         array $read,
         array $write,
