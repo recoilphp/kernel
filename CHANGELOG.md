@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.0-alpha.2 (2017-01-09)
+
+- **[NEW]**, **[BC]** Add `Api::select()`
+
 ## 1.0.0-alpha.1 (2016-12-14)
 
 - **[BC]** Remove public `cancel()` method from `StrandWait*` classes
