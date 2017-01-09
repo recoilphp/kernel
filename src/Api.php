@@ -297,17 +297,11 @@ interface Api
      *
      * @see Recoil::select() for the full specification.
      *
-     * @param SystemStrand    $strand  The strand executing the API call.
-     * @param array<resource> $read    The set of readable streams.
-     * @param array<resource> $read    The set of writable streams.
-     * @param float           $timeout The maximum time to wait, in seconds.
+     * @param SystemStrand    $strand The strand executing the API call.
+     * @param array<resource> $read   The set of readable streams.
+     * @param array<resource> $read   The set of writable streams.
      *
      * @return Generator|null
      */
-    public function select(
-        SystemStrand $strand,
-        array $read,
-        array $write,
-        float $timeout = INF
-    );
+    public function select(SystemStrand $strand, array $read, array $write);
 }
