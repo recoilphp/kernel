@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "aa2162b4ec520cc61c00f660f64af9b3",
-    "content-hash": "5720419d84f3481e7f82890f9ca68a94",
+    "hash": "1ae33def853fc95a6d97a73fa9337a66",
+    "content-hash": "44cd2131a5670d1f14355f5cc606e0bb",
     "packages": [
         {
             "name": "icecave/repr",
@@ -60,16 +60,16 @@
         },
         {
             "name": "recoil/api",
-            "version": "dev-3-select",
+            "version": "1.0.0-alpha.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/recoilphp/api.git",
-                "reference": "55abdd2f4a7c97881bc806af3236f70f2ff63265"
+                "reference": "b94f1fca853cd55d59c690132c201f3606d8df6b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/recoilphp/api/zipball/55abdd2f4a7c97881bc806af3236f70f2ff63265",
-                "reference": "55abdd2f4a7c97881bc806af3236f70f2ff63265",
+                "url": "https://api.github.com/repos/recoilphp/api/zipball/b94f1fca853cd55d59c690132c201f3606d8df6b",
+                "reference": "b94f1fca853cd55d59c690132c201f3606d8df6b",
                 "shasum": ""
             },
             "require": {
@@ -113,7 +113,7 @@
                 "multitasking",
                 "react"
             ],
-            "time": "2017-01-09 00:59:43"
+            "time": "2017-01-09 04:10:02"
         }
     ],
     "packages-dev": [
@@ -1451,17 +1451,10 @@
             "time": "2016-06-29 05:43:10"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.0.0-alpha.99999",
-            "alias_normalized": "1.0.0.0-alpha99999",
-            "version": "dev-3-select",
-            "package": "recoil/api"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "recoil/api": 20
+        "recoil/api": 15
     },
     "prefer-stable": false,
     "prefer-lowest": false,

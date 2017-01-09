@@ -4,7 +4,7 @@
     "require": {
         "php": "^7",
         "icecave/repr": "^1",
-        "recoil/api": "dev-3-select as 1.0.0-alpha.99999"
+        "recoil/api": "1.0.0-alpha.2"
     },
     "require-dev": {
         "eloquent/phony": "^0.14",
