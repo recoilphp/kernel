@@ -34,16 +34,16 @@ trait ApiTrait
     public function __dispatch(SystemStrand $strand, $key, $value)
     {
         if (null === $value) {
-            $this->cooperate($strand);
+            return $this->cooperate($strand);
         } elseif (\is_integer($value) || \is_float($value)) {
-            $this->sleep($strand, $value);
+            return $this->sleep($strand, $value);
         } elseif (\is_array($value)) {
-            $this->all($strand, ...$value);
+            return $this->all($strand, ...$value);
         } elseif (\is_resource($value)) {
             if (\is_string($key)) {
-                $this->write($strand, $value, $key, PHP_INT_MAX);
+                return $this->write($strand, $value, $key, PHP_INT_MAX);
             } else {
-                $this->read($strand, $value, 1, PHP_INT_MAX);
+                return $this->read($strand, $value, 1, PHP_INT_MAX);
             }
         } elseif (\method_exists($value, 'then')) {
             $onFulfilled = static function ($result) use ($strand) {
@@ -308,6 +308,14 @@ trait ApiTrait
      */
     public function all(SystemStrand $strand, ...$coroutines)
     {
+        if (empty($coroutines)) {
+            return (function () {
+                yield Recoil::cooperate();
+
+                return [];
+            })();
+        }
+
         $kernel = $strand->kernel();
         $substrands = [];
 
@@ -331,6 +339,10 @@ trait ApiTrait
      */
     public function any(SystemStrand $strand, ...$coroutines)
     {
+        if (empty($coroutines)) {
+            return $this->cooperate($strand);
+        }
+
         $kernel = $strand->kernel();
         $substrands = [];
 
@@ -357,18 +369,26 @@ trait ApiTrait
     {
         $max = \count($coroutines);
 
-        if ($count < 1 || $count > $max) {
+        if ($count < 0 || $count > $max) {
             $strand->throw(
                 new InvalidArgumentException(
                     'Can not wait for '
                     . $count
-                    . ' coroutines, count must be between 1 and '
+                    . ' coroutines, count must be between 0 and '
                     . $max
                     . ', inclusive.'
                 )
             );
 
             return;
+        }
+
+        if ($count == 0 || empty($coroutines)) {
+            return (function () {
+                yield Recoil::cooperate();
+
+                return [];
+            })();
         }
 
         $kernel = $strand->kernel();
@@ -394,6 +414,10 @@ trait ApiTrait
      */
     public function first(SystemStrand $strand, ...$coroutines)
     {
+        if (empty($coroutines)) {
+            return $this->cooperate($strand);
+        }
+
         $kernel = $strand->kernel();
         $substrands = [];
 
