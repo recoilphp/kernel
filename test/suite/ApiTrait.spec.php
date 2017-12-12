@@ -548,17 +548,17 @@ describe(ApiTrait::class, function () {
             $this->strand->throw->never()->called();
         });
 
-        it('resumes the strand with an exception if the count is less than one', function () {
+        it('resumes the strand with an exception if the count is less than zero', function () {
             $this->subject->get()->some(
                 $this->strand->get(),
-                0,
+                -1,
                 '<a>',
                 '<b>'
             );
 
             $this->strand->throw->calledWith(
                 new InvalidArgumentException(
-                    'Can not wait for 0 coroutines, count must be between 1 and 2, inclusive.'
+                    'Can not wait for -1 coroutines, count must be between 0 and 2, inclusive.'
                 )
             );
         });
@@ -573,7 +573,7 @@ describe(ApiTrait::class, function () {
 
             $this->strand->throw->calledWith(
                 new InvalidArgumentException(
-                    'Can not wait for 3 coroutines, count must be between 1 and 2, inclusive.'
+                    'Can not wait for 3 coroutines, count must be between 0 and 2, inclusive.'
                 )
             );
         });
