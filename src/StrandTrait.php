@@ -135,8 +135,8 @@ trait StrandTrait
                 $this->action = $this->value = null;
             }
 
-            // The "start_generator" is jumped to when a new generator has been
-            // pushed onto the call-stack ...
+            // The "start_generator" label is jumped to when a new generator has
+            // been pushed onto the call-stack ...
             start_generator:
             assert($this->current instanceof Generator, 'call-stack must not be empty');
             assert($this->state === StrandState::RUNNING, 'strand state must be RUNNING');
@@ -197,8 +197,11 @@ trait StrandTrait
                             ...$produced->__arguments
                         );
 
-                        // The API call is implemented as a generator coroutine,
-                        // push it onto the call-stack and execute it ...
+                        assert(
+                            $produced === null || $produced instanceof Generator,
+                            'API operations must be return Generator|null'
+                        );
+
                         if ($produced instanceof Generator) {
                             goto push_generator;
                         }
@@ -231,11 +234,20 @@ trait StrandTrait
                     // Some unidentified value was yielded, allow the API to
                     // dispatch the operation as it sees fit ...
                     } else {
-                        $this->api->__dispatch(
+                        $produced = $this->api->__dispatch(
                             $this,
                             $this->current->key(),
                             $produced
                         );
+
+                        assert(
+                            $produced === null || $produced instanceof Generator,
+                            'API operations must be return Generator|null'
+                        );
+
+                        if ($produced instanceof Generator) {
+                            goto push_generator;
+                        }
                     }
 
                 // An exception occurred as a result of the yielded value. This

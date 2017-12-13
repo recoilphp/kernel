@@ -1,5 +1,10 @@
 # Changelog
 
+## Next Release
+
+- **[FIXED]** Fix `all()`, `any()`, `some()` and `first()` when called without
+  providing any coroutines
+
 ## 1.0.0 (2017-10-18)
 
 This is the first stable release of `recoil/kernel`. There have been no changes

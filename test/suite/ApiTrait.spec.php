@@ -7,9 +7,11 @@ namespace Recoil\Kernel;
 use BadMethodCallException;
 use Eloquent\Phony\Phony;
 use Error;
+use Generator;
 use Hamcrest\Core\IsInstanceOf;
 use InvalidArgumentException;
 use Recoil\Kernel\Exception\RejectedException;
+use Recoil\Recoil;
 use Throwable;
 use UnexpectedValueException;
 
@@ -495,6 +497,14 @@ describe(ApiTrait::class, function () {
 
             expect($call1->argument())->to->equal($call2->argument());
         });
+
+        it('cooperates when there are no coroutines', function () {
+            $gen = $this->subject->get()->all($this->strand->get());
+
+            expect($gen)->to->be->an->instanceof(Generator::class);
+            expect(iterator_to_array($gen))->to->equal([Recoil::cooperate()]);
+            expect($gen->getReturn())->to->equal([]);
+        });
     });
 
     describe('->any()', function () {
@@ -518,6 +528,12 @@ describe(ApiTrait::class, function () {
             );
 
             expect($call1->argument())->to->equal($call2->argument());
+        });
+
+        it('cooperates when there are no coroutines', function () {
+            $this->subject->get()->any($this->strand->get());
+
+            $this->subject->cooperate->calledWith($this->strand);
         });
     });
 
@@ -548,17 +564,17 @@ describe(ApiTrait::class, function () {
             $this->strand->throw->never()->called();
         });
 
-        it('resumes the strand with an exception if the count is less than one', function () {
+        it('resumes the strand with an exception if the count is less than zero', function () {
             $this->subject->get()->some(
                 $this->strand->get(),
-                0,
+                -1,
                 '<a>',
                 '<b>'
             );
 
             $this->strand->throw->calledWith(
                 new InvalidArgumentException(
-                    'Can not wait for 0 coroutines, count must be between 1 and 2, inclusive.'
+                    'Can not wait for -1 coroutines, count must be between 0 and 2, inclusive.'
                 )
             );
         });
@@ -573,9 +589,17 @@ describe(ApiTrait::class, function () {
 
             $this->strand->throw->calledWith(
                 new InvalidArgumentException(
-                    'Can not wait for 3 coroutines, count must be between 1 and 2, inclusive.'
+                    'Can not wait for 3 coroutines, count must be between 0 and 2, inclusive.'
                 )
             );
+        });
+
+        it('cooperates when there are no coroutines', function () {
+            $gen = $this->subject->get()->some($this->strand->get(), 0);
+
+            expect($gen)->to->be->an->instanceof(Generator::class);
+            expect(iterator_to_array($gen))->to->equal([Recoil::cooperate()]);
+            expect($gen->getReturn())->to->equal([]);
         });
     });
 
@@ -600,6 +624,12 @@ describe(ApiTrait::class, function () {
             );
 
             expect($call1->argument())->to->equal($call2->argument());
+        });
+
+        it('cooperates when there are no coroutines', function () {
+            $this->subject->get()->first($this->strand->get());
+
+            $this->subject->cooperate->calledWith($this->strand);
         });
     });
 });
