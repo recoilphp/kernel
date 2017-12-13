@@ -338,6 +338,8 @@ trait ApiTrait
         }
 
         (new StrandWaitAll(...$substrands))->await($strand);
+
+        return null;
     }
 
     /**
@@ -365,6 +367,8 @@ trait ApiTrait
         }
 
         (new StrandWaitAny(...$substrands))->await($strand);
+
+        return null;
     }
 
     /**
@@ -394,7 +398,7 @@ trait ApiTrait
                 )
             );
 
-            return;
+            return null;
         }
 
         if ($count == 0 || empty($coroutines)) {
@@ -413,6 +417,8 @@ trait ApiTrait
         }
 
         (new StrandWaitSome($count, ...$substrands))->await($strand);
+
+        return null;
     }
 
     /**
@@ -440,6 +446,8 @@ trait ApiTrait
         }
 
         (new StrandWaitFirst(...$substrands))->await($strand);
+
+        return null;
     }
 
     /**
