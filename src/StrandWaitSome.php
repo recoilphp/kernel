@@ -33,7 +33,7 @@ final class StrandWaitSome implements Awaitable, Listener
      *
      * @return int The number of strands that must succeed.
      */
-    public function count() : int
+    public function count(): int
     {
         return $this->count;
     }

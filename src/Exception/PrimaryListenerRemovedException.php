@@ -34,7 +34,7 @@ class PrimaryListenerRemovedException extends Exception
     /**
      * Get the listener that was removed.
      */
-    public function listener() : Listener
+    public function listener(): Listener
     {
         return $this->listener;
     }
@@ -42,7 +42,7 @@ class PrimaryListenerRemovedException extends Exception
     /**
      * Get the strand from which the listener was removed.
      */
-    public function strand() : Strand
+    public function strand(): Strand
     {
         return $this->strand;
     }

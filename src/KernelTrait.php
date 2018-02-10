@@ -22,7 +22,7 @@ trait KernelTrait
      *
      * @param mixed $arguments,... Implementation-specific parameters.
      */
-    abstract public static function create() : self;
+    abstract public static function create(): self;
 
     /**
      * Execute a coroutine on a new kernel.
@@ -106,7 +106,7 @@ trait KernelTrait
      *
      * @param mixed $coroutine The coroutine to execute.
      */
-    abstract public function execute($coroutine) : Strand;
+    abstract public function execute($coroutine): Strand;
 
     /**
      * Set a user-defined exception handler function.

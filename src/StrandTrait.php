@@ -59,7 +59,7 @@ trait StrandTrait
      *
      * Strand IDs are unique within the kernel.
      */
-    public function id() : int
+    public function id(): int
     {
         return $this->id;
     }
@@ -67,7 +67,7 @@ trait StrandTrait
     /**
      * Get the kernel that the strand is running on.
      */
-    public function kernel() : SystemKernel
+    public function kernel(): SystemKernel
     {
         return $this->kernel;
     }
@@ -428,7 +428,7 @@ trait StrandTrait
     /**
      * Check if the strand has exited.
      */
-    public function hasExited() : bool
+    public function hasExited(): bool
     {
         return $this->state === StrandState::EXITED;
     }
@@ -501,7 +501,7 @@ trait StrandTrait
      * Implementations must favour await() over awaitable() when both are
      * available to avoid a pointless performance hit.
      */
-    public function awaitable() : Awaitable
+    public function awaitable(): Awaitable
     {
         return $this;
     }
