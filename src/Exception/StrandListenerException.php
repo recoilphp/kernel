@@ -39,7 +39,7 @@ class StrandListenerException extends Exception
     /**
      * Get the exited strand.
      */
-    public function strand() : Strand
+    public function strand(): Strand
     {
         return $this->strand;
     }

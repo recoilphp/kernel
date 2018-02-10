@@ -16,7 +16,7 @@ interface SystemStrand extends Strand
     /**
      * Get the kernel that the strand is running on.
      */
-    public function kernel() : SystemKernel;
+    public function kernel(): SystemKernel;
 
     /**
      * Set the primary listener.
@@ -57,12 +57,12 @@ interface SystemStrand extends Strand
      *
      * @return null
      */
-    public function link(SystemStrand $strand);
+    public function link(self $strand);
 
     /**
      * Break a previously created uni-directional link to another strand.
      *
      * @return null
      */
-    public function unlink(SystemStrand $strand);
+    public function unlink(self $strand);
 }
