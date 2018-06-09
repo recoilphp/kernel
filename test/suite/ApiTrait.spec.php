@@ -239,6 +239,22 @@ describe(ApiTrait::class, function () {
                 $terminator();
                 $this->thenable->cancel->called();
             });
+
+            it('does not resume the strand if the promise is resolved after cancellation', function () {
+                $resolve = $this->thenable->then->calledWith('~', '~')->firstCall()->argument(0);
+                $terminator = $this->strand->setTerminator->calledWith('~')->firstCall()->argument();
+                $terminator();
+                $resolve('<value>');
+                $this->strand->send->never()->called();
+            });
+
+            it('does not resume the strand if the promise is rejected after cancellation', function () {
+                $reject = $this->thenable->then->calledWith('~', '~')->firstCall()->argument(1);
+                $terminator = $this->strand->setTerminator->calledWith('~')->firstCall()->argument();
+                $terminator();
+                $reject('<error>');
+                $this->strand->throw->never()->called();
+            });
         });
 
         it('resumes the strand with an exception if $value is not actionable', function () {
