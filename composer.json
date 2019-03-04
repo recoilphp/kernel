@@ -2,12 +2,12 @@
     "name": "recoil/kernel",
     "description": "Reusable components for implementing Recoil kernels.",
     "require": {
-        "php": "^7",
+        "php": "^7.1",
         "icecave/repr": "^1",
         "recoil/api": "^1"
     },
     "require-dev": {
-        "eloquent/phony": "^2",
+        "eloquent/phony": "^3",
         "friendsofphp/php-cs-fixer": "^2",
         "hamcrest/hamcrest-php": "^2",
         "peridot-php/leo": "^1",
@@ -40,7 +40,7 @@
     "config": {
         "sort-packages": true,
         "platform": {
-            "php": "7.0"
+            "php": "7.1"
         }
     }
 }
