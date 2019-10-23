@@ -7,7 +7,7 @@
         "recoil/api": "^1"
     },
     "require-dev": {
-        "eloquent/phony": "^3",
+        "eloquent/phony": "dev-php-74 as 3.99.99",
         "friendsofphp/php-cs-fixer": "^2",
         "hamcrest/hamcrest-php": "^2",
         "peridot-php/leo": "^1",

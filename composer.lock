@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2f2a362c217d4b08eceeb1cf02e05fcf",
+    "content-hash": "866f0f249be370dbb39ecdf608463c2e",
     "packages": [
         {
             "name": "icecave/repr",
@@ -351,16 +351,16 @@
         },
         {
             "name": "eloquent/phony",
-            "version": "3.1.0",
+            "version": "dev-php-74",
             "source": {
                 "type": "git",
                 "url": "https://github.com/eloquent/phony.git",
-                "reference": "54ac8a937079da0d818d82aaf5edd61501c48f2c"
+                "reference": "91f2ad47d13a137b4dee6c516c6b68a7df4925a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/eloquent/phony/zipball/54ac8a937079da0d818d82aaf5edd61501c48f2c",
-                "reference": "54ac8a937079da0d818d82aaf5edd61501c48f2c",
+                "url": "https://api.github.com/repos/eloquent/phony/zipball/91f2ad47d13a137b4dee6c516c6b68a7df4925a4",
+                "reference": "91f2ad47d13a137b4dee6c516c6b68a7df4925a4",
                 "shasum": ""
             },
             "require": {
@@ -372,7 +372,7 @@
                 "friendsofphp/php-cs-fixer": "^2",
                 "hamcrest/hamcrest-php": "^2",
                 "icecave/semver": "^3",
-                "phpunit/phpunit": "^7"
+                "phpunit/phpunit": "^7 || ^8 <8.3.0 || ^8.3.4"
             },
             "type": "library",
             "extra": {
@@ -413,7 +413,7 @@
                 "stubbing",
                 "test"
             ],
-            "time": "2018-12-06T23:43:04+00:00"
+            "time": "2019-10-23T01:38:24+00:00"
         },
         {
             "name": "evenement/evenement",
@@ -1993,9 +1993,18 @@
             "time": "2019-08-06T13:24:37+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "3.99.99",
+            "alias_normalized": "3.99.99.0",
+            "version": "dev-php-74",
+            "package": "eloquent/phony"
+        }
+    ],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "eloquent/phony": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
