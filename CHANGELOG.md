@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.2 (2019-10-31)
+
+- Bumped dependencies for compatibility with PHP 7.4
+
 ## 1.0.1 (2017-12-13)
 
 - **[FIXED]** Fix `all()`, `any()`, `some()` and `first()` when called without
