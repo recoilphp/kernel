@@ -3,7 +3,7 @@
     "description": "Reusable components for implementing Recoil kernels.",
     "require": {
         "php": "^7.1",
-        "icecave/repr": "^2",
+        "icecave/repr": "^4|^3|^2",
         "recoil/api": "^1"
     },
     "require-dev": {
