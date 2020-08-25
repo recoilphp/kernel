@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.3 (2020-08-25)
+
+- Relax version constraint for `icecave/repr` dependency
+
 ## 1.0.2 (2019-10-31)
 
 - Bumped dependencies for compatibility with PHP 7.4
