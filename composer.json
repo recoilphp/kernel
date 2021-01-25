@@ -2,12 +2,12 @@
     "name": "recoil/kernel",
     "description": "Reusable components for implementing Recoil kernels.",
     "require": {
-        "php": "^7.3|^8",
+        "php": ">=7.3",
         "icecave/repr": "^4|^3|^2",
-        "recoil/api": "dev-php-8"
+        "recoil/api": "^1.0.2"
     },
     "require-dev": {
-        "eloquent/phony": "dev-php-8",
+        "eloquent/phony": "^5",
         "friendsofphp/php-cs-fixer": "^2",
         "hamcrest/hamcrest-php": "^2",
         "peridot-php/leo": "^1",
