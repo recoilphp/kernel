@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.0.4 (2021-12-20)
 
 - **[FIXED]** Prevent "double resume" of a strand that awaits a promise that is resolved/rejected after cancellation
 
