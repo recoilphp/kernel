@@ -56,11 +56,21 @@ trait ApiTrait
         }
 
         if (\method_exists($value, 'then')) {
-            $onFulfilled = static function ($result) use ($strand) {
+            $cancelled = false;
+
+            $onFulfilled = static function ($result) use ($strand, &$cancelled) {
+                if ($cancelled) {
+                    return;
+                }
+
                 $strand->send($result);
             };
 
-            $onRejected = static function ($reason) use ($strand) {
+            $onRejected = static function ($reason) use ($strand, &$cancelled) {
+                if ($cancelled) {
+                    return;
+                }
+
                 if ($reason instanceof Throwable) {
                     $strand->throw($reason);
                 } else {
@@ -75,7 +85,8 @@ trait ApiTrait
             }
 
             if (\method_exists($value, 'cancel')) {
-                $strand->setTerminator(function () use ($value) {
+                $strand->setTerminator(function () use ($value, &$cancelled) {
+                    $cancelled = true;
                     $value->cancel();
                 });
             }
