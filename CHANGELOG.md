@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- **[FIXED]** Prevent "double resume" of a strand that awaits a promise that is resolved/rejected after cancellation
+
 ## 1.0.3 (2020-08-25)
 
 - Relax version constraint for `icecave/repr` dependency
