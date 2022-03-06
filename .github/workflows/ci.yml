@@ -26,7 +26,5 @@ jobs:
         uses: actions/checkout@v1
       - name: Make
         run: make ci
-      - name: Upload Coverage Reports
-        if: success()
-        run: |
-          [[ -z "${{ secrets.CODECOV_TOKEN }}" ]] || bash <(curl -s https://codecov.io/bash) -t "${{ secrets.CODECOV_TOKEN }}" -B "${{ github.ref }}"
+      - name: Upload coverage report
+        uses: codecov/codecov-action@v2
