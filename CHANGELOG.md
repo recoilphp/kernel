@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.5 (2022-03-06)
+
+- Add support for PHP 8
+- Drop support for PHP 7.1, 7.2 and 7.3
+
 ## 1.0.4 (2021-12-20)
 
 - **[FIXED]** Prevent "double resume" of a strand that awaits a promise that is resolved/rejected after cancellation
