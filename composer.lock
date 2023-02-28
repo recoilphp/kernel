@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9b04808e01cff66cf6c107a226edf174",
+    "content-hash": "06e1084ab6c3b784e9d0447782d3baa0",
     "packages": [
         {
             "name": "icecave/repr",
@@ -490,37 +490,37 @@
         },
         {
             "name": "eloquent/phony",
-            "version": "5.0.2",
+            "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "https://github.com/eloquent/phony.git",
-                "reference": "f34d67d6db6b6f351ea7e8aa8066107e756ec26b"
+                "reference": "158ceee136c15c47f457caef930e86ac2f94ef58"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/eloquent/phony/zipball/f34d67d6db6b6f351ea7e8aa8066107e756ec26b",
-                "reference": "f34d67d6db6b6f351ea7e8aa8066107e756ec26b",
+                "url": "https://api.github.com/repos/eloquent/phony/zipball/158ceee136c15c47f457caef930e86ac2f94ef58",
+                "reference": "158ceee136c15c47f457caef930e86ac2f94ef58",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.3 || ^8"
+                "php": "^8"
             },
             "require-dev": {
-                "eloquent/code-style": "^1.0",
-                "eloquent/phpstan-phony": "^0.7",
-                "errors/exceptions": "^0.2",
+                "eloquent/code-style": "^2",
+                "eloquent/phpstan-phony": "^0.8",
                 "ext-pdo": "*",
-                "friendsofphp/php-cs-fixer": "^2",
+                "friendsofphp/php-cs-fixer": "^3",
                 "hamcrest/hamcrest-php": "^2",
                 "phpstan/extension-installer": "^1",
-                "phpstan/phpstan": "^0.12",
-                "phpstan/phpstan-phpunit": "^0.12",
+                "phpstan/phpstan": "^1",
+                "phpstan/phpstan-phpunit": "^1",
                 "phpunit/phpunit": "^9"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "5.1.x-dev"
+                    "dev-main": "5.1.x-dev"
                 }
             },
             "autoload": {
@@ -540,11 +540,11 @@
                 {
                     "name": "Erin Millard",
                     "email": "ezzatron@gmail.com",
-                    "homepage": "http://ezzatron.com/"
+                    "homepage": "https://ezzatron.com/"
                 }
             ],
             "description": "Mocks, stubs, and spies for PHP.",
-            "homepage": "http://eloquent-software.com/phony/",
+            "homepage": "https://eloquent-software.com/phony/",
             "keywords": [
                 "Double",
                 "Dummy",
@@ -558,9 +558,9 @@
             ],
             "support": {
                 "issues": "https://github.com/eloquent/phony/issues",
-                "source": "https://github.com/eloquent/phony/tree/5.0.2"
+                "source": "https://github.com/eloquent/phony/tree/main"
             },
-            "time": "2021-02-17T01:45:10+00:00"
+            "time": "2023-02-28T13:10:32+00:00"
         },
         {
             "name": "evenement/evenement",
@@ -2978,6 +2978,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "eloquent/phony": 20,
         "peridot-php/leo": 20,
         "peridot-php/peridot": 20,
         "peridot-php/peridot-code-coverage-reporters": 20
@@ -2989,7 +2990,7 @@
     },
     "platform-dev": [],
     "platform-overrides": {
-        "php": "7.4"
+        "php": "8.0"
     },
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.3.0"
 }
