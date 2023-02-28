@@ -4,30 +4,21 @@ declare(strict_types=1); // @codeCoverageIgnore
 
 namespace Recoil\Kernel;
 
-use Closure;
 use Eloquent\Phony\Phony;
 use Exception;
 use Hamcrest\Core\IsInstanceOf;
 use Recoil\Exception\KernelException;
 use Recoil\Exception\StrandException;
 use Recoil\Exception\TerminatedException;
-
-abstract class MockKernel implements SystemKernel {
-    use KernelTrait;
-
-    static $instance;
-    static $args;
-
-    static function create(...$args): self {
-        self::$args = $args;
-        return self::$instance;
-    }
-}
+use ReflectionProperty;
 
 describe(KernelTrait::class, function () {
     beforeEach(function () {
-        $this->subject = Phony::partialMock(MockKernel::class);
-        MockKernel::$instance = $this->subject->get();
+        $this->subject = Phony::partialMock([
+            SystemKernel::class,
+            KernelTrait::class,
+        ]);
+        Phony::onStatic($this->subject)->create->returns($this->subject);
 
         $this->strand = Phony::mock(SystemStrand::class);
         $this->strand->kernel->returns($this->subject);
@@ -45,7 +36,7 @@ describe(KernelTrait::class, function () {
             $fn = [$this->subject->className(), 'start'];
             $fn('<coroutine>', 1, 2, 3);
 
-            expect(MockKernel::$args)->to->equal([1, 2, 3]);
+            Phony::onStatic($this->subject)->create->calledWith(1, 2, 3);
         });
 
         it('uses a MainStrandListener', function () {
@@ -121,14 +112,14 @@ describe(KernelTrait::class, function () {
 
     describe('->stop()', function () {
         it('sets the stopping state', function () {
-            $this->subject->loop->does(Closure::bind(
-                function () {
-                    $this->stop();
-                    expect($this->state)->to->equal(KernelState::STOPPING);
-                },
-                $this->subject->get(),
-                MockKernel::class
-            ));
+            $this->subject->loop->does(function ($phonySelf) {
+                $phonySelf->stop();
+
+                $state = new ReflectionProperty($phonySelf, 'state');
+                $state->setAccessible(true);
+
+                expect($state->getValue($phonySelf))->to->equal(KernelState::STOPPING);
+            });
 
             $this->subject->get()->run();
         });
